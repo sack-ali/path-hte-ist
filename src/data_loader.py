@@ -35,13 +35,12 @@ def load_raw_ist() -> pd.DataFrame:
 
 
 def load_clean_ist() -> pd.DataFrame:
-    """Load the cleaned, analysis-ready dataset (parquet)."""
+    """Load the cleaned, analysis-ready dataset (parquet), preprocessing if needed."""
     path = config.IST_CLEAN_PATH
     if not path.exists():
-        raise FileNotFoundError(
-            f"Cleaned IST file not found at {path}. "
-            "Run `python -m src.preprocess` first."
-        )
+        from . import preprocess as _pp
+        log.info("Parquet not found — running preprocessing now.")
+        _pp.main()
     return pd.read_parquet(path)
 
 
