@@ -1,0 +1,27 @@
+# Core scientific stack
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+
+# Modeling
+scikit-learn>=1.4
+statsmodels>=0.14
+
+# Survival / clinical prediction (used later)
+lifelines>=0.28
+
+# Plotting
+matplotlib>=3.8
+seaborn>=0.13
+
+# Notebooks
+jupyterlab>=4.0
+ipywidgets>=8.0
+
+# Dashboard
+streamlit>=1.32
+plotly>=5.18
+
+# Dev / testing
+pytest>=7.4
+ruff>=0.3
