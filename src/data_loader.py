@@ -35,13 +35,18 @@ def load_raw_ist() -> pd.DataFrame:
 
 
 def load_clean_ist() -> pd.DataFrame:
-    """Load the cleaned, analysis-ready dataset (parquet), preprocessing if needed."""
+    """Load the cleaned, analysis-ready dataset.
+
+    Uses the cached parquet if available. Otherwise preprocesses the raw CSV
+    in-memory and returns the result directly — safe on read-only filesystems
+    like Streamlit Cloud. The caller's @st.cache_data handles in-memory caching.
+    """
     path = config.IST_CLEAN_PATH
-    if not path.exists():
-        from . import preprocess as _pp
-        log.info("Parquet not found — running preprocessing now.")
-        _pp.main()
-    return pd.read_parquet(path)
+    if path.exists():
+        return pd.read_parquet(path)
+    log.info("Parquet not found — preprocessing from raw CSV.")
+    from .preprocess import preprocess as _preprocess
+    return _preprocess(load_raw_ist())
 
 
 def quick_summary(df: pd.DataFrame) -> pd.DataFrame:

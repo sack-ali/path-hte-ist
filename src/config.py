@@ -22,7 +22,7 @@ DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 REPORTS = PROJECT_ROOT / "reports"
 FIGURES = REPORTS / "figures"
 
-IST_RAW_FILENAME = "IST_corrected.csv"
+IST_RAW_FILENAME = "IST_corrected.CSV"
 IST_RAW_PATH = DATA_RAW / IST_RAW_FILENAME
 IST_CLEAN_PATH = DATA_PROCESSED / "ist_clean.parquet"
 
