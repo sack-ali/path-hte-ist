@@ -36,7 +36,8 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 # --------------------------------------------------------------------------- #
 def _yn_to_binary(s: pd.Series) -> pd.Series:
     """Map Y/N (and lowercase / whitespace variants) to 1/0; everything else -> NaN."""
-    if s.dtype != object:
+    # is_string_dtype covers both object (old pandas) and Arrow-backed strings (pandas 3+)
+    if not pd.api.types.is_string_dtype(s):
         return s
     mapped = (
         s.astype(str)
